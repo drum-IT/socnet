@@ -1,14 +1,17 @@
 // get dependencies
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 
 // get routers
 const userRouter = require("./routes/api/users");
 const profileRouter = require("./routes/api/profiles");
 const postRouter = require("./routes/api/posts");
 
-// initialize app
+// initialize and configure app
 const app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 // if not in production, load .env file and dev logging
 if (process.env.NODE_ENV !== "production") {

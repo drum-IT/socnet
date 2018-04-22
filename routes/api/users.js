@@ -1,9 +1,30 @@
+// get dependencies and create express router
 const express = require("express");
 const userRouter = express.Router();
+
+// get the user model
+const User = require("../../models/User");
 
 // @route  GET api/users/test
 // @desc   Test users route
 // @access Public
 userRouter.get("/test", (req, res) => res.json({ msg: "user router" }));
+
+// @route  GET api/users/register
+// @desc   Register a new user account
+// @access Public
+userRouter.post("/register", (req, res) => {
+	User.findOne({ email: req.body.email }).then(user => {
+		if (user) {
+			return res.status(400).json({ email: "Email Already Exists" });
+		}
+		const newUser = new User({
+			name: req.body.name,
+			email: req.body.email,
+			avatar,
+			password: req.body.password
+		});
+	});
+});
 
 module.exports = userRouter;
