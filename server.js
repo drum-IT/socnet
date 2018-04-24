@@ -1,7 +1,8 @@
 // get dependencies
+const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+const passport = require("passport");
 
 // get routers
 const userRouter = require("./routes/api/users");
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 
 // if not in production, load .env file and dev logging
 if (process.env.NODE_ENV !== "production") {
+	console.log("loading env");
 	require("dotenv").config();
 	const morgan = require("morgan");
 	app.use(morgan("dev"));
@@ -27,9 +29,11 @@ mongoose
 	.then(() => console.log("MongoDB connected"))
 	.catch(err => console.log(err));
 
-// app routes
-app.get("/", (req, res) => res.send("hello"));
+app.use(passport.initialize());
 
+require("./config/passport")(passport);
+
+// app routes
 app.use("/api/users", userRouter);
 app.use("/api/profiles", profileRouter);
 app.use("/api/posts", postRouter);
