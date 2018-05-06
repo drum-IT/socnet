@@ -6,6 +6,8 @@ const profileRouter = express.Router();
 
 // get validation
 const validateProfileInput = require("../../validation/profile");
+const validateExperienceInput = require("../../validation/experience");
+const validateEducationInput = require("../../validation/education");
 
 // get models
 const Profile = require("../../models/Profile");
@@ -36,6 +38,57 @@ profileRouter.get(
 			.catch(err => res.status(404).json(err));
 	}
 );
+
+// @route  GET api/profiles/all
+// @desc   Get all profiles
+// @access Public
+profileRouter.get("/all", (req, res) => {
+	const errors = {};
+	Profile.find()
+		.populate("user", ["name", "avatar"])
+		.then(profiles => {
+			if (!profiles) {
+				errors.noprofile = "No profiles";
+				return res.status(404).json(errors);
+			}
+			res.json(profiles);
+		})
+		.catch(err => res.status(400).json(err));
+});
+
+// @route  GET api/profiles/handle/:handle
+// @desc   Get a user profile by handle
+// @access Public
+profileRouter.get("/handle/:handle", (req, res) => {
+	const errors = {};
+	Profile.findOne({ handle: req.params.handle })
+		.populate("user", ["name", "avatar"])
+		.then(profile => {
+			if (!profile) {
+				errors.noprofile = "No profile for this handle.";
+				return res.status(404).json(errors);
+			}
+			res.json(profile);
+		})
+		.catch(err => res.status(400).json(err));
+});
+
+// @route  GET api/profiles/user/:user_id
+// @desc   Get a user profile by user id
+// @access Public
+profileRouter.get("/user/:user_id", (req, res) => {
+	const errors = {};
+	Profile.findOne({ user: req.params.user_id })
+		.populate("user", ["name", "avatar"])
+		.then(profile => {
+			if (!profile) {
+				errors.noprofile = "No profile for this user ID.";
+				return res.status(404).json(errors);
+			}
+			res.json(profile);
+		})
+		.catch(err => res.status(400).json(err));
+});
 
 // @route  POST api/profiles
 // @desc   Create or edit user profile
@@ -88,6 +141,64 @@ profileRouter.post(
 					new Profile(profileFields).save().then(profile => res.json(profile));
 				});
 			}
+		});
+	}
+);
+
+// @route  POST api/profiles/experience
+// @desc   Add experience to profile
+// @access Private
+profileRouter.post(
+	"/experience",
+	passport.authenticate("jwt", { session: false }),
+	(req, res) => {
+		// data validation
+		const { errors, isValid } = validateExperienceInput(req.body);
+		if (!isValid) {
+			return res.status(400).json(errors);
+		}
+
+		Profile.findOne({ user: req.user.id }).then(profile => {
+			const newExp = {
+				title: req.body.title,
+				company: req.body.company,
+				location: req.body.location,
+				from: req.body.from,
+				to: req.body.to,
+				current: req.body.current,
+				description: req.body.description
+			};
+			profile.experience.unshift(newExp);
+			profile.save().then(profile => res.json(profile));
+		});
+	}
+);
+
+// @route  POST api/profiles/education
+// @desc   Add education to profile
+// @access Private
+profileRouter.post(
+	"/education",
+	passport.authenticate("jwt", { session: false }),
+	(req, res) => {
+		// data validation
+		const { errors, isValid } = validateEducationInput(req.body);
+		if (!isValid) {
+			return res.status(400).json(errors);
+		}
+
+		Profile.findOne({ user: req.user.id }).then(profile => {
+			const newEdu = {
+				school: req.body.school,
+				degree: req.body.degree,
+				fieldOfStudy: req.body.fieldOfStudy,
+				from: req.body.from,
+				to: req.body.to,
+				current: req.body.current,
+				description: req.body.description
+			};
+			profile.education.unshift(newEdu);
+			profile.save().then(profile => res.json(profile));
 		});
 	}
 );
