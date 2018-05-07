@@ -1,3 +1,6 @@
+// this function returns true if a value is empty.
+// a value is considered empty if it is undefined, null, an empty object, or a string with length 0
+
 const isEmpty = value =>
 	value === undefined ||
 	value === null ||
