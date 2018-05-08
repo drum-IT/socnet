@@ -7,6 +7,7 @@ const passport = require("passport");
 // get routers
 const userRouter = require("./routes/api/users");
 const profileRouter = require("./routes/api/profiles");
+const projectRouter = require("./routes/api/projects");
 const postRouter = require("./routes/api/posts");
 
 // initialize and configure app
@@ -36,6 +37,7 @@ require("./config/passport")(passport);
 // app routes
 app.use("/api/users", userRouter);
 app.use("/api/profiles", profileRouter);
+app.use("/api/projects", projectRouter);
 app.use("/api/posts", postRouter);
 
 // set server port and start the server
