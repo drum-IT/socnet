@@ -22,9 +22,59 @@ projectRouter.get(
 	"/",
 	passport.authenticate("jwt", { session: false }),
 	(req, res) => {
-		Project.find({ owner: req.user.id }).then(projects => res.json(projects));
+		Project.find({ owner: req.user.id })
+			.populate("members", ["name", "email"])
+			.then(projects => res.json(projects));
 	}
 );
+
+// @route  GET api/projects/member
+// @desc   Get all projects the current user is a member of
+// @access Private
+projectRouter.get(
+	"/member",
+	passport.authenticate("jwt", { session: false }),
+	(req, res) => {
+		const errors = {};
+		Project.find()
+			.populate("owner", ["name", "email"])
+			.populate("members", ["name", "email"])
+			.then(projects => {
+				if (!projects) {
+					errors.project = "No projects found.";
+					return res.status(404).json(errors);
+				}
+				const myProjects = [];
+				projects.forEach(project => {
+					project.members.forEach(member => {
+						console.log(member.id === req.user.id);
+						if (member.id === req.user.id) {
+							myProjects.push(project);
+						}
+					});
+				});
+				res.json(myProjects);
+			});
+	}
+);
+
+// @route  GET api/projects/all
+// @desc   Get all public projects
+// @access Public
+projectRouter.get("/all", (req, res) => {
+	const errors = {};
+	Project.find({ private: false })
+		.populate("owner", ["name", "email"])
+		.populate("members", ["name", "email"])
+		.then(projects => {
+			if (!projects) {
+				errors.project = "No projects found.";
+				return res.status(404).json(errors);
+			}
+			res.json(projects);
+		})
+		.catch(err => res.status(400).json(err));
+});
 
 // @route  POST api/projects
 // @desc   Create a project
