@@ -13,6 +13,11 @@ const validateEducationInput = require("../../validation/education");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 
+/*
+** GET
+** ROUTES
+*/
+
 // @route  GET api/profiles/test
 // @desc   Test profiles route
 // @access Public

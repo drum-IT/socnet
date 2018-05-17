@@ -21,12 +21,15 @@ if (process.env.NODE_ENV !== "production") {
 	require("dotenv").config();
 	const morgan = require("morgan");
 	app.use(morgan("dev"));
+	console.log(process.env.SECRET);
+	console.log(process.env.MONGODB_URI);
 }
 
 // connect to MongoDB
 const db = require("./config/keys").mongoURI;
 mongoose
-	.connect(db)
+	// .connect(db)
+	.connect(process.env.MONGODB_URI)
 	.then(() => console.log("MongoDB connected"))
 	.catch(err => console.log(err));
 
