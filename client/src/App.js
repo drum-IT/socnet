@@ -20,7 +20,7 @@ class App extends Component {
 						<Route exact path="/register" component={Register} />
 						<Route exact path="/login" component={Login} />
 					</div>
-					<Footer />
+					{/* <Footer /> */}
 				</div>
 			</Router>
 		);

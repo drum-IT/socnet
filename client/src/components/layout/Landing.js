@@ -5,25 +5,15 @@ class Landing extends Component {
 	render() {
 		return (
 			<div className="landing">
-				<div className="dark-overlay landing-inner text-light">
-					<div className="container">
-						<div className="row">
-							<div className="col-md-12 text-center">
-								<h1 className="display-3 mb-4">SocNet</h1>
-								{/* <p className="lead">
-									{" "}
-									Create a profile/portfolio, share posts, and find partners for
-									creative projects
-								</p> */}
-								<hr />
-								<Link to="/register" className="btn btn-lg btn-info mr-2">
-									Sign Up
-								</Link>
-								<Link to="/login" className="btn btn-lg btn-light">
-									Login
-								</Link>
-							</div>
-						</div>
+				<div className="landing__container">
+					{/* <h1 className="landing__title">Site Name</h1> */}
+					<div className="landing__container--inner">
+						{/* <Link to="/register" className="button">
+							Get Started
+						</Link>
+						<Link to="/login" className="button">
+							Login
+						</Link> */}
 					</div>
 				</div>
 			</div>
