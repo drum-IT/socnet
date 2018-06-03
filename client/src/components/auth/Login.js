@@ -23,33 +23,37 @@ class Login extends Component {
 	}
 	render() {
 		return (
-			<div className="body__container">
-				<div className="form__container">
-					<h1 className="form__title">Sign In</h1>
-					<p className="form__subtitle">Sign in to your Site Name account</p>
-					<form onSubmit={this.handleSubmit}>
-						<div className="form__group">
-							<input
-								type="email"
-								className="form__input form__input--top"
-								placeholder="Email Address"
-								name="email"
-								value={this.state.email}
-								onChange={this.handleInputChange}
-							/>
+			<div className="login">
+				<div className="container">
+					<div className="row">
+						<div className="col-md-8 m-auto">
+							<h1 className="display-4 text-center">Log In</h1>
+							<p className="lead text-center">Sign in to your SocNet account</p>
+							<form onSubmit={this.handleSubmit}>
+								<div className="form-group">
+									<input
+										type="email"
+										className="form-control form-control-lg"
+										placeholder="Email Address"
+										name="email"
+										value={this.state.email}
+										onChange={this.handleInputChange}
+									/>
+								</div>
+								<div className="form-group">
+									<input
+										type="password"
+										className="form-control form-control-lg"
+										placeholder="Password"
+										name="password"
+										value={this.state.password}
+										onChange={this.handleInputChange}
+									/>
+								</div>
+								<input type="submit" className="btn btn-info btn-block mt-4" />
+							</form>
 						</div>
-						<div className="form__group">
-							<input
-								type="password"
-								className="form__input  form__input--bottom"
-								placeholder="Password"
-								name="password"
-								value={this.state.password}
-								onChange={this.handleInputChange}
-							/>
-						</div>
-						<input type="submit" className="form__submit" />
-					</form>
+					</div>
 				</div>
 			</div>
 		);
