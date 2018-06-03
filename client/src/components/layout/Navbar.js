@@ -4,25 +4,42 @@ import { Link } from "react-router-dom";
 class Navbar extends Component {
 	render() {
 		return (
-			<nav className="nav">
-				<div className="nav__container nav__container--left">
-					<Link className="nav__link nav__link--main" to="/">
-						Site Name
+			<nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+				<div className="container">
+					<Link className="navbar-brand" to="/">
+						SocNet
 					</Link>
-				</div>
-				<div className="nav__container nav__container--right">
-					<div className="nav__links">
-						<div className="nav__links--main">
-							{/* <Link className="nav__link" to="/profiles"> Creators</Link> */}
-						</div>
-						<div className="nav__links--auth">
-							<Link className="nav__link" to="/login">
-								Sign In
-							</Link>
-							<Link className="nav__link nav__link--callout" to="/register">
-								Sign Up
-							</Link>
-						</div>
+					<button
+						className="navbar-toggler"
+						type="button"
+						data-toggle="collapse"
+						data-target="#mobile-nav"
+					>
+						<span className="navbar-toggler-icon" />
+					</button>
+
+					<div className="collapse navbar-collapse" id="mobile-nav">
+						<ul className="navbar-nav mr-auto">
+							<li className="nav-item">
+								<Link className="nav-link" to="/profiles">
+									{" "}
+									Creators
+								</Link>
+							</li>
+						</ul>
+
+						<ul className="navbar-nav ml-auto">
+							<li className="nav-item">
+								<Link className="nav-link" to="/register">
+									Sign Up
+								</Link>
+							</li>
+							<li className="nav-item">
+								<Link className="nav-link" to="/login">
+									Login
+								</Link>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</nav>
