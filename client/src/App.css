@@ -4,8 +4,7 @@ img {
 
 .landing {
 	position: relative;
-	background: url("https://source.unsplash.com/800x600/?create,art,draw,paint,photo")
-		no-repeat;
+	background: url("./img/landing.jpg") no-repeat;
 	background-size: cover;
 	background-position: center;
 	height: 100vh;
