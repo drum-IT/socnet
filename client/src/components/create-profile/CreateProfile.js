@@ -124,16 +124,12 @@ class CreateProfile extends Component {
         value: "Working"
       },
       {
-        label: "Not Working",
-        value: "Not Working"
-      },
-      {
         label: "Traveling",
         value: "Traveling"
       },
       {
-        label: "Something",
-        value: "Something"
+        label: "Studying",
+        value: "Studying"
       }
     ];
     return (
@@ -145,9 +141,6 @@ class CreateProfile extends Component {
               <p className="lead text-center">
                 Please provide soem information about yourself.
               </p>
-              {/* <small className="d-block pb-3">
-                required fields are marked with *
-              </small> */}
               <form onSubmit={this.handleSubmit}>
                 <TextFieldGroup
                   placeholder="Handle"

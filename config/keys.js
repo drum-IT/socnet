@@ -1,6 +1,5 @@
-module.exports = {
-	mongoURI: process.env.MONGODB_URI || "mongodb://localhost/socnet",
-	secretOrKey:
-		process.env.SECRET ||
-		"that time when you spun around so fast you lost your lunch"
-};
+if (process.env.NODE_ENV === "production") {
+  module.exports = require("./keys_prod");
+} else {
+  module.exports = require("./keys_dev");
+}

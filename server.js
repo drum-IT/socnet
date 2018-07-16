@@ -17,21 +17,18 @@ app.use(bodyParser.json());
 
 // if not in production, load .env file and dev logging
 if (process.env.NODE_ENV !== "production") {
-	console.log("loading env");
-	require("dotenv").config();
-	const morgan = require("morgan");
-	app.use(morgan("dev"));
-	console.log(process.env.SECRET);
-	console.log(process.env.MONGODB_URI);
+  console.log("loading env");
+  require("dotenv").config();
+  const morgan = require("morgan");
+  app.use(morgan("dev"));
 }
 
 // connect to MongoDB
 const db = require("./config/keys").mongoURI;
 mongoose
-	// .connect(db)
-	.connect(process.env.MONGODB_URI)
-	.then(() => console.log("MongoDB connected"))
-	.catch(err => console.log(err));
+  .connect(db)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.log(err));
 
 app.use(passport.initialize());
 
