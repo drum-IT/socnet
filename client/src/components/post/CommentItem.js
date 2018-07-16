@@ -18,6 +18,7 @@ class CommentItem extends Component {
               <img
                 className="rounded-circle d-none d-md-block"
                 src={comment.avatar}
+                alt="user avatar"
               />
             </Link>
             <br />

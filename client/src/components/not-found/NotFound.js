@@ -1,10 +1,10 @@
 import React from "react";
 
-export default () => {
+export default props => {
   return (
     <div>
-      <h1 className="display-4">Page Not Found</h1>
-      <p>Sorry, this page does not exist.</p>
+      <h1 className="display-4">{props.message || "Page Not Found"}</h1>
+      <p>Nothing to see here.</p>
     </div>
   );
 };

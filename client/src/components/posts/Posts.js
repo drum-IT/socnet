@@ -5,6 +5,7 @@ import PostForm from "./PostForm";
 import Spinner from "../common/Spinner";
 import PostFeed from "./PostFeed";
 import { getPosts } from "../../actions/postActions";
+import NotFound from "../not-found/NotFound";
 
 class Posts extends Component {
   componentDidMount() {
@@ -13,8 +14,10 @@ class Posts extends Component {
   render() {
     const { posts, loading } = this.props.post;
     let postContent;
-    if (posts === null || loading) {
+    if (posts === null && loading) {
       postContent = <Spinner />;
+    } else if (posts === null && !loading) {
+      postContent = <NotFound message={"No Posts Found"} />;
     } else {
       postContent = <PostFeed posts={posts} />;
     }

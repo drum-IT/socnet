@@ -16,12 +16,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 // if not in production, load .env file and dev logging
-if (process.env.NODE_ENV !== "production") {
-  console.log("loading env");
-  require("dotenv").config();
-  const morgan = require("morgan");
-  app.use(morgan("dev"));
-}
+// if (process.env.NODE_ENV !== "production") {
+//   console.log("loading env");
+//   require("dotenv").config();
+//   const morgan = require("morgan");
+//   app.use(morgan("dev"));
+// }
 
 // connect to MongoDB
 const db = require("./config/keys").mongoURI;
