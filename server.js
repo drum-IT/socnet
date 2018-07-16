@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const path = require("path");
 
 // get routers
 const userRouter = require("./routes/api/users");
@@ -39,6 +40,14 @@ app.use("/api/users", userRouter);
 app.use("/api/profiles", profileRouter);
 app.use("/api/projects", projectRouter);
 app.use("/api/posts", postRouter);
+
+// SERVE STATIC ASSETS IF IN PRODUCTION
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+  });
+}
 
 // set server port and start the server
 const PORT = process.env.PORT || 5000;
