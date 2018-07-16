@@ -2,7 +2,8 @@ img {
   width: 100%;
 }
 
-.navbar-brand {
+.navbar-brand,
+.landing-title {
   font-family: "Lilita One", sans-serif;
 }
 
